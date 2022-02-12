@@ -31,4 +31,7 @@ class GameBoard:
         for amp in self.ampules:
             board_str += "\u2570\u2500\u2500\u256F "
         board_str += "\n"
+        for amp in self.ampules:
+            board_str += f" {amp}   "
+        board_str += "\n"
         return board_str

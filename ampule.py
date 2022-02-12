@@ -4,9 +4,10 @@ from color import Color
 
 
 class Ampule:
-    def __init__(self, max_height=None, colors=None):
+    def __init__(self, symbol, max_height=None, colors=None):
         self.colors: List = colors if colors else []
         self.max_height = max_height if max_height else len(self.colors)
+        self.symbol = symbol
 
     def get_top_color(self):
         return self.colors[-1]
@@ -41,6 +42,9 @@ class Ampule:
     def remove_top_color(self, n):
         for i in range(n):
             self.colors.pop()
+
+    def __str__(self):
+        return self.symbol
 
 
 def can_be_poured(source: Ampule, dest: Ampule):
