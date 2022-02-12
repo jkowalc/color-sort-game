@@ -6,7 +6,6 @@ from generate_board import generate_board
 def main_loop(board: GameBoard):
     while True:
         try:
-            board.check_conditions()
             possibilites = board.get_possible_pours()
             print(board)
             player_choice = get_player_decision(possibilites)

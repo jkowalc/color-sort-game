@@ -19,7 +19,16 @@ class GameBoard:
     def get_ampules_num(self):
         return len(self.ampules)
 
+    def check_win_condition(self):
+        is_satisfied = True
+        for ampule in self.ampules:
+            if not ampule.is_correct:
+                is_satisfied = False
+        if is_satisfied:
+            raise WinEvent
+
     def get_possible_pours(self):
+        self.check_win_condition()
         possibilites = permutations(self.ampules)
         possible_pours = []
         for possibility in possibilites:
@@ -27,6 +36,8 @@ class GameBoard:
             dest = possibility[1]
             if can_be_poured(source, dest):
                 possible_pours.append(possibility)
+        if len(possible_pours) == 0:
+            raise NoMoveEvent
         return possible_pours
 
     def __str__(self):

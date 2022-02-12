@@ -46,6 +46,17 @@ class Ampule:
     def __str__(self):
         return self.symbol
 
+    def is_correct(self):
+        if self.get_current_height == 0:
+            return True
+        if self.get_current_height != self.max_height:
+            return False
+        top_color = self.get_top_color()
+        for color in self.colors:
+            if color != top_color:
+                return False
+        return True
+
 
 def can_be_poured(source: Ampule, dest: Ampule):
     if source.get_top_color() != dest.get_top_color():
