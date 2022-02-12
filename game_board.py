@@ -3,6 +3,14 @@ from typing import List
 from ampule import Ampule, can_be_poured
 
 
+class WinEvent(Exception):
+    pass
+
+
+class NoMoveEvent(Exception):
+    pass
+
+
 class GameBoard:
     def __init__(self, ampules: List[Ampule] = None):
         self.ampules: List[Ampule] = list(ampules) if ampules else []

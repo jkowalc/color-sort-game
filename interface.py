@@ -1,13 +1,14 @@
 from ampule import pour
-from game import Game, NoMoveEvent, WinEvent
+from game_board import GameBoard, WinEvent, NoMoveEvent
+from generate_board import generate_board
 
 
-def main_loop(game: Game):
+def main_loop(board: GameBoard):
     while True:
         try:
-            game.check_conditions()
-            possibilites = game.board.get_possible_pours()
-            print(game.board)
+            board.check_conditions()
+            possibilites = board.get_possible_pours()
+            print(board)
             player_choice = get_player_decision(possibilites)
             source, dest = player_choice
             pour(source, dest)
