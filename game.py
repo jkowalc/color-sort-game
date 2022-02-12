@@ -5,12 +5,12 @@ from ampule import Ampule
 from color import Color
 from game_board import GameBoard
 COLORS = [
-    Color(Fore.BLUE),
-    Color(Fore.GREEN),
-    Color(Fore.RED),
-    Color(Fore.MAGENTA),
-    Color(Fore.YELLOW),
-    Color(Fore.CYAN)
+    Fore.BLUE,
+    Fore.GREEN,
+    Fore.RED,
+    Fore.MAGENTA,
+    Fore.YELLOW,
+    Fore.CYAN
 ]
 
 
@@ -19,14 +19,17 @@ class Game:
         if initial_board:
             self.board = initial_board
 
-    def generate_board(self, max_height, empty_ampules, full_ampules):
+    def generate_board(self, max_height, full_ampules, empty_ampules):
         ampules = []
         colors = COLORS[:full_ampules]
+        color_uses = {color: 0 for color in colors}
         for _ in range(full_ampules):
             amp_colors = []
             for _ in range(max_height):
-                color = choice(colors)
-                amp_colors.append(color)
+                available_colors = [color for color in colors if color_uses[color]<max_height]
+                color = choice(available_colors)
+                color_uses[color] += 1
+                amp_colors.append(Color(color))
             ampules.append(Ampule(colors=amp_colors))
         for _ in range(empty_ampules):
             ampules.append(Ampule(max_height=max_height))

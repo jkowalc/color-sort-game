@@ -4,9 +4,9 @@ from ampule import Ampule, can_be_poured
 
 
 class GameBoard:
-    def __init__(self, max_height=None, ampules=None):
-        self.ampules: List[Ampule] = list(ampules) if ampules else None
-        self.max_height = max_height
+    def __init__(self, ampules: List[Ampule] = None):
+        self.ampules: List[Ampule] = list(ampules) if ampules else []
+        self.max_height = ampules[0].max_height if ampules else 0
 
     def get_ampules_num(self):
         return len(self.ampules)

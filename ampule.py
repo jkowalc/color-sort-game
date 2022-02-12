@@ -5,7 +5,7 @@ from color import Color
 
 class Ampule:
     def __init__(self, max_height=None, colors=None):
-        self.colors: List = colors if colors else None
+        self.colors: List = colors if colors else []
         self.max_height = max_height if max_height else len(self.colors)
 
     def get_top_color(self):
@@ -29,7 +29,7 @@ class Ampule:
         return top_color_height
 
     def get_color(self, n):
-        if n <= self.get_current_height():
+        if n <= self.get_current_height()-1:
             return self.colors[n]
         else:
             return Color()
