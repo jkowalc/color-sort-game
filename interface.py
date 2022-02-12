@@ -12,9 +12,11 @@ def main_loop(board: GameBoard):
             source, dest = player_choice
             pour(source, dest)
         except WinEvent:
-            pass
+            print("Win")
+            break
         except NoMoveEvent:
-            pass
+            print("No move")
+            break
 
 
 def get_player_decision(possibilities):
@@ -22,8 +24,8 @@ def get_player_decision(possibilities):
     for i, possibility in enumerate(possibilities):
         source = str(possibility[0])
         dest = str(possibility[1])
-        print(f"{i}. {source} -> {dest}")
-    choice = int(input("Choose one: "))
+        print(f"{i+1}. {source} -> {dest}")
+    choice = int(input("Choose one: ")) - 1
     if choice < len(possibilities):
         return possibilities[choice]
     else:

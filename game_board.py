@@ -22,14 +22,14 @@ class GameBoard:
     def check_win_condition(self):
         is_satisfied = True
         for ampule in self.ampules:
-            if not ampule.is_correct:
+            if not ampule.is_correct():
                 is_satisfied = False
         if is_satisfied:
             raise WinEvent
 
     def get_possible_pours(self):
         self.check_win_condition()
-        possibilites = permutations(self.ampules)
+        possibilites = permutations(self.ampules, 2)
         possible_pours = []
         for possibility in possibilites:
             source = possibility[0]
