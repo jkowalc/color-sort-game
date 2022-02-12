@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import List
+from color import Color
 
 
 class Ampule:
@@ -26,6 +27,12 @@ class Ampule:
             else:
                 return top_color_height
         return top_color_height
+
+    def get_color(self, n):
+        if n <= self.get_current_height():
+            return self.colors[n]
+        else:
+            return Color()
 
     def add_color(self, color, n):
         for i in range(n):
