@@ -26,7 +26,10 @@ class Game:
         for _ in range(full_ampules):
             amp_colors = []
             for _ in range(max_height):
-                available_colors = [color for color in colors if color_uses[color]<max_height]
+                available_colors = [
+                    color for color in colors
+                    if color_uses[color] < max_height
+                ]
                 color = choice(available_colors)
                 color_uses[color] += 1
                 amp_colors.append(Color(color))
@@ -34,5 +37,3 @@ class Game:
         for _ in range(empty_ampules):
             ampules.append(Ampule(max_height=max_height))
         self.board = GameBoard(ampules=ampules)
-
-
