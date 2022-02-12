@@ -1,9 +1,10 @@
 from __future__ import annotations
+from typing import List
 
 
 class Ampule:
     def __init__(self, max_height=None, colors=None):
-        self.colors = colors if colors else None
+        self.colors: List = colors if colors else None
         self.max_height = max_height if max_height else len(self.colors)
 
     def get_top_color(self):
@@ -26,11 +27,26 @@ class Ampule:
                 return top_color_height
         return top_color_height
 
+    def add_color(self, color, n):
+        for i in range(n):
+            self.colors.append(color)
+
+    def remove_top_color(self, n):
+        for i in range(n):
+            self.colors.pop()
+
+
 def can_be_poured(source: Ampule, dest: Ampule):
     if source.get_top_color() != dest.get_top_color():
         return False
     space_left = dest.get_space_left()
     return space_left > 0
 
-def pour(source:Ampule, dest: Ampule):
-    pass
+
+def pour(source: Ampule, dest: Ampule):
+    color = source.get_top_color()
+    space_left = dest.get_space_left()
+    max_quantity = source.get_top_color_height()
+    actual_quantity = max(max_quantity, space_left)
+    source.remove_top_color(actual_quantity)
+    dest.add_color(color, actual_quantity)
