@@ -1,6 +1,5 @@
 from ampule import pour
 from game_board import GameBoard, WinEvent, NoMoveEvent
-from generate_board import generate_board
 
 
 def main_loop(board: GameBoard):

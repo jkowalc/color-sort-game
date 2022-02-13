@@ -35,8 +35,8 @@ class Ampule:
         else:
             return Color()
 
-    def add_color(self, color, n):
-        for i in range(n):
+    def add_color_on_top(self, color, n):
+        for _ in range(n):
             self.colors.append(color)
 
     def remove_top_color(self, n):
@@ -73,6 +73,6 @@ def pour(source: Ampule, dest: Ampule):
     color = source.get_top_color()
     space_left = dest.get_space_left()
     max_quantity = source.get_top_color_height()
-    actual_quantity = max(max_quantity, space_left)
+    actual_quantity = min(max_quantity, space_left)
     source.remove_top_color(actual_quantity)
-    dest.add_color(color, actual_quantity)
+    dest.add_color_on_top(color, actual_quantity)
