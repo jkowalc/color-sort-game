@@ -36,7 +36,7 @@ class Ampule:
         top_color = self.get_top_color()
         top_color_height = 0
         amp_height = self.get_current_height()
-        for color_i in range(-1, -amp_height, -1):
+        for color_i in range(-1, -amp_height-1, -1):
             if self.colors[color_i] == top_color:
                 top_color_height += 1
             else:

@@ -19,4 +19,4 @@ def text_to_code(text):
 
 
 def get_possible_colors():
-    return COLORS.keys()
+    return list(COLORS.keys())

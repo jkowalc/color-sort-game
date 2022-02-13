@@ -59,6 +59,15 @@ def test_get_top_color_height_2():
     assert amp.get_top_color_height() == 2
 
 
+def test_get_top_color_height_monotone():
+    colors = [
+        Color("blue"),
+        Color("blue")
+    ]
+    amp = Ampule(colors=colors)
+    assert amp.get_top_color_height() == 2
+
+
 def test_get_color_1():
     colors = [
         Color("red")
@@ -197,6 +206,25 @@ def test_pour():
         Color("red"),
         Color("blue")
     ]
+    assert amp2.colors == [
+        Color("blue"),
+        Color("blue"),
+        Color("blue")
+    ]
+
+
+def test_pour_empty():
+    colors1 = [
+        Color("blue"),
+        Color("blue")
+    ]
+    colors2 = [
+        Color("blue")
+    ]
+    amp1 = Ampule(max_height=3, colors=colors1)
+    amp2 = Ampule(max_height=3, colors=colors2)
+    pour(amp1, amp2)
+    assert amp1.colors == []
     assert amp2.colors == [
         Color("blue"),
         Color("blue"),
