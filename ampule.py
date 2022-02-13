@@ -3,14 +3,26 @@ from typing import List
 from color import Color
 
 
+class AmpuleFullError(Exception):
+    pass
+
+
+class AmpuleEmptyError(Exception):
+    pass
+
+
+class CannotBePouredError(Exception):
+    pass
+
+
 class Ampule:
-    def __init__(self, symbol, max_height=None, colors=None):
+    def __init__(self, symbol=None, max_height=None, colors=None):
         self.colors: List = colors if colors else []
         self.max_height = max_height if max_height else len(self.colors)
         self.symbol = symbol
 
     def get_top_color(self):
-        return self.colors[-1]
+        return self.colors[-1] if self.colors[-1] else None
 
     def get_current_height(self):
         return len(self.colors)
@@ -19,6 +31,8 @@ class Ampule:
         return self.max_height - self.get_current_height()
 
     def get_top_color_height(self):
+        if len(self.colors) == 0:
+            return 0
         top_color = self.get_top_color()
         top_color_height = 0
         amp_height = self.get_current_height()
@@ -36,15 +50,19 @@ class Ampule:
             return Color()
 
     def add_color_on_top(self, color, n):
+        if n > self.get_space_left():
+            raise AmpuleFullError
         for _ in range(n):
             self.colors.append(color)
 
-    def remove_top_color(self, n):
+    def remove_colors_from_top(self, n):
+        if n > self.get_current_height():
+            raise AmpuleEmptyError
         for _ in range(n):
             self.colors.pop()
 
     def __str__(self):
-        return self.symbol
+        return self.symbol if self.symbol else ""
 
     def is_correct(self):
         if self.get_current_height() == 0:
@@ -70,9 +88,11 @@ def can_be_poured(source: Ampule, dest: Ampule):
 
 
 def pour(source: Ampule, dest: Ampule):
+    if not can_be_poured(source, dest):
+        raise CannotBePouredError
     color = source.get_top_color()
     space_left = dest.get_space_left()
     max_quantity = source.get_top_color_height()
     actual_quantity = min(max_quantity, space_left)
-    source.remove_top_color(actual_quantity)
+    source.remove_colors_from_top(actual_quantity)
     dest.add_color_on_top(color, actual_quantity)

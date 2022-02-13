@@ -6,7 +6,7 @@ from color_translation import text_to_code
 
 @dataclass
 class Color:
-    value: str
+    value: str = None
 
     def __str__(self):
         if self.value:
