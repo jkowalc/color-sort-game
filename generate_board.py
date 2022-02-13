@@ -1,23 +1,14 @@
 from random import choice
 from ampule import Ampule
 from color import Color
+from color_translation import get_possible_colors
 from game_board import GameBoard
-from colorama import Fore
-COLORS = [
-    Fore.BLUE,
-    Fore.GREEN,
-    Fore.RED,
-    Fore.MAGENTA,
-    Fore.YELLOW,
-    Fore.CYAN
-]
-
 SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
 def generate_board(max_height, full_ampules, empty_ampules):
     ampules = []
-    colors = COLORS[:full_ampules]
+    colors = get_possible_colors()[:full_ampules]
     symbols = list(SYMBOLS)
     color_uses = {color: 0 for color in colors}
     for _ in range(full_ampules):

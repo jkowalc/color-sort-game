@@ -13,7 +13,7 @@ class NoMoveEvent(Exception):
 
 class GameBoard:
     def __init__(self, ampules: List[Ampule] = None):
-        self.ampules: List[Ampule] = list(ampules) if ampules else []
+        self.ampules = ampules if ampules else []
         self.max_height = ampules[0].max_height if ampules else 0
 
     def get_ampules_num(self):

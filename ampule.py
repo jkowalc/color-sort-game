@@ -40,7 +40,7 @@ class Ampule:
             self.colors.append(color)
 
     def remove_top_color(self, n):
-        for i in range(n):
+        for _ in range(n):
             self.colors.pop()
 
     def __str__(self):
