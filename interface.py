@@ -80,18 +80,28 @@ def get_second_choice(poss_ampules):
     if len(poss_ampules) == 1:
         return poss_ampules[0]
     print_possibilities_source(poss_ampules)
-    poss_letters = [str(amp) for amp in poss_ampules]
     choice = input("Choose destination ('1' or 'a' syntax): ")
-    if not choice.isalpha():
-        print("Destination must be a letter")
-        return get_second_choice(poss_ampules)
-    choice = choice.upper()
-    if choice in poss_letters:
-        return get_ampule_from_letter(poss_ampules, choice)
+    if choice.isdigit():
+        choice = int(choice) - 1
+        if choice < len(poss_ampules):
+            return poss_ampules[choice]
+        else:
+            limit = len(poss_ampules) - 1
+            print(f"Choice must be between 1 and {limit}. Try again.")
+            return get_second_choice(poss_ampules)
+    elif choice.isalpha():
+        poss_letters = [str(amp) for amp in poss_ampules]
+        choice = choice.upper()
+        if choice in poss_letters:
+            return get_ampule_from_letter(poss_ampules, choice)
+        else:
+            poss_letters_str = str(poss_letters)[1:-1]
+            print(f"Destination must be in {poss_letters_str}")
+            return get_second_choice(poss_ampules)
     else:
-        poss_letters_str = str(poss_letters)[1:-1]
-        print(f"Destination must be in {poss_letters_str}")
+        print("Wrong syntax. Try again.")
         return get_second_choice(poss_ampules)
+
 
 
 def print_possibilities_all(possibilities):
