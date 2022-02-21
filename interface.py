@@ -11,9 +11,9 @@ def main_loop():
 def level_loop(board: GameBoard):
     while True:
         try:
-            possibilites = board.get_possible_pours()
+            possibilities = board.get_possible_pours()
             print(board)
-            player_choice = get_player_decision(possibilites)
+            player_choice = get_player_decision(possibilities)
             source, dest = player_choice
             pour(source, dest)
         except WinEvent:
@@ -26,13 +26,14 @@ def level_loop(board: GameBoard):
 
 def get_player_decision(possibilities):
     print_possibilities_all(possibilities)
-    choice = input("Choose one (1 or 'a' or 'ab'): ")
+    choice = input("Choose one ('1' or 'a' or 'aa' syntax): ")
     if choice.isdigit():
         choice = int(choice) - 1
         if choice < len(possibilities):
             return possibilities[choice]
         else:
-            print("Wrong value.")
+            limit = len(possibilities) - 1
+            print(f"Choice must be between 1 and {limit}. Try again.")
             return get_player_decision(possibilities)
     elif choice.isalpha():
         choice = choice.upper()
@@ -45,10 +46,10 @@ def get_player_decision(possibilities):
             source_letter = choice
             return handle_other_variants(possibilities, source_letter)
         else:
-            print("Wrong value")
+            print("Too many letters. Try again.")
             return get_player_decision(possibilities)
     else:
-        print("Wrong value")
+        print("Wrong syntax. Try again.")
         return get_player_decision(possibilities)
 
 
@@ -56,7 +57,8 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
     poss_dict = convert_tuple_list_to_dict(possibilities)
     first_poss_letters = [key.symbol for key in poss_dict.keys()]
     if source_letter not in first_poss_letters:
-        print("Wrong value")
+        first_poss_letters_str = str(first_poss_letters)[1:-1]
+        print(f"First choice must be in {first_poss_letters_str}")
         return get_player_decision(possibilities)
     poss_from_source = get_poss_from_source_letter(poss_dict, source_letter)
     poss_ampules, source = poss_from_source
@@ -68,23 +70,27 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
         dest = get_ampule_from_letter(poss_ampules, dest_letter)
         return source, dest
     else:
-        print("Wrong value")
+        poss_letters_str = str(poss_letters)[1:-1]
+        print(f"Second letter must be in {poss_letters_str}")
         dest = get_second_choice(poss_ampules)
         return source, dest
 
 
 def get_second_choice(poss_ampules):
+    if len(poss_ampules) == 1:
+        return poss_ampules[0]
     print_possibilities_source(poss_ampules)
     poss_letters = [str(amp) for amp in poss_ampules]
-    second_choice = input("Choose one: ")
-    if not second_choice.isalpha():
-        print("Wrong value")
+    choice = input("Choose destination ('1' or 'a' syntax): ")
+    if not choice.isalpha():
+        print("Destination must be a letter")
         return get_second_choice(poss_ampules)
-    second_choice = second_choice.upper()
-    if second_choice in poss_letters:
-        return get_ampule_from_letter(poss_ampules, second_choice)
+    choice = choice.upper()
+    if choice in poss_letters:
+        return get_ampule_from_letter(poss_ampules, choice)
     else:
-        print("Wrong value")
+        poss_letters_str = str(poss_letters)[1:-1]
+        print(f"Destination must be in {poss_letters_str}")
         return get_second_choice(poss_ampules)
 
 
