@@ -16,8 +16,8 @@ class CannotBePouredError(Exception):
 
 
 class Ampule:
-    def __init__(self, symbol=None, max_height=None, colors=None):
-        self.colors: List = colors if colors else []
+    def __init__(self, symbol=None, max_height=None, colors: List[Color] = None):
+        self.colors = colors if colors else []
         self.max_height = max_height if max_height else len(self.colors)
         self.symbol = symbol
 

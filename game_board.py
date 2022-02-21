@@ -12,9 +12,10 @@ class NoMoveEvent(Exception):
 
 
 class GameBoard:
-    def __init__(self, ampules: List[Ampule] = None):
+    def __init__(self, ampules: List[Ampule] = None, title=None):
         self.ampules = ampules if ampules else []
         self.max_height = ampules[0].max_height if ampules else 0
+        self.title = title
 
     def get_ampules_num(self):
         return len(self.ampules)
