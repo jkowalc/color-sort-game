@@ -80,7 +80,8 @@ def test_get_possible_pours():
         Color("red")
     ], max_height=3)
     board = GameBoard([ampule1, ampule2])
-    assert board.get_possible_pours() == [(ampule1, ampule2), (ampule2, ampule1)]
+    assert board.get_possible_pours() == [(ampule1, ampule2),
+                                          (ampule2, ampule1)]
 
 
 def test_get_possible_pours_one():
