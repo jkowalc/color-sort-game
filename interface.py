@@ -1,7 +1,8 @@
 from ampule import pour
 from game_board import GameBoard, WinEvent, NoMoveEvent
-from tools import get_ampule_from_letter, get_poss_from_source_letter
+from tools import clear_console, get_ampule_from_letter, get_poss_from_source_letter
 from tools import convert_tuple_list_to_dict
+import config
 
 
 def main_loop():
@@ -11,6 +12,7 @@ def main_loop():
 def level_loop(board: GameBoard):
     while True:
         try:
+            clear_console()
             possibilities = board.get_possible_pours()
             print(board)
             player_choice = get_player_decision(possibilities)
@@ -25,15 +27,16 @@ def level_loop(board: GameBoard):
 
 
 def get_player_decision(possibilities):
-    print_possibilities_all(possibilities)
-    choice = input("Choose one ('1' or 'a' or 'aa' syntax): ")
+    if config.PrintAllPossibilitiesRule:
+        print_possibilities_all(possibilities)
+    choice = input(config.CONFIG["player_decision_msg"])
     if choice.isdigit():
         choice = int(choice) - 1
-        if choice < len(possibilities):
+        limit = len(possibilities)
+        if choice < limit:
             return possibilities[choice]
         else:
-            limit = len(possibilities) - 1
-            print(f"Choice must be between 1 and {limit}. Try again.")
+            print(config.CONFIG["choice_outside_bounds_msg"].format(limit))
             return get_player_decision(possibilities)
     elif choice.isalpha():
         choice = choice.upper()
@@ -46,10 +49,10 @@ def get_player_decision(possibilities):
             source_letter = choice
             return handle_other_variants(possibilities, source_letter)
         else:
-            print("Too many letters. Try again.")
+            print(config.CONFIG["too_many_letters_msg"])
             return get_player_decision(possibilities)
     else:
-        print("Wrong syntax. Try again.")
+        print(config.CONFIG["wrong_syntax_msg"])
         return get_player_decision(possibilities)
 
 
@@ -57,8 +60,8 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
     poss_dict = convert_tuple_list_to_dict(possibilities)
     first_poss_letters = [key.symbol for key in poss_dict.keys()]
     if source_letter not in first_poss_letters:
-        first_poss_letters_str = str(first_poss_letters)[1:-1]
-        print(f"First choice must be in {first_poss_letters_str}")
+        first_poss_letters_str = str(first_poss_letters)
+        print(config.CONFIG["choice_must_be_in_msg"].format(first_poss_letters_str))
         return get_player_decision(possibilities)
     poss_from_source = get_poss_from_source_letter(poss_dict, source_letter)
     poss_ampules, source = poss_from_source
@@ -70,8 +73,8 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
         dest = get_ampule_from_letter(poss_ampules, dest_letter)
         return source, dest
     else:
-        poss_letters_str = str(poss_letters)[1:-1]
-        print(f"Second letter must be in {poss_letters_str}")
+        poss_letters_str = str(poss_letters)
+        print(config.CONFIG["choice_must_be_in_msg"].format(poss_letters_str))
         dest = get_second_choice(poss_ampules)
         return source, dest
 
@@ -79,15 +82,16 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
 def get_second_choice(poss_ampules):
     if len(poss_ampules) == 1:
         return poss_ampules[0]
-    print_possibilities_source(poss_ampules)
-    choice = input("Choose destination ('1' or 'a' syntax): ")
+    if config.PrintSourcePossibilitiesRule:
+        print_possibilities_source(poss_ampules)
+    choice = input(config.CONFIG["player_decision_dest_msg"])
     if choice.isdigit():
         choice = int(choice) - 1
-        if choice < len(poss_ampules):
+        limit = len(poss_ampules)
+        if choice < limit:
             return poss_ampules[choice]
         else:
-            limit = len(poss_ampules) - 1
-            print(f"Choice must be between 1 and {limit}. Try again.")
+            print(config.CONFIG["choice_outside_bounds_msg"].format(limit))
             return get_second_choice(poss_ampules)
     elif choice.isalpha():
         poss_letters = [str(amp) for amp in poss_ampules]
@@ -95,17 +99,16 @@ def get_second_choice(poss_ampules):
         if choice in poss_letters:
             return get_ampule_from_letter(poss_ampules, choice)
         else:
-            poss_letters_str = str(poss_letters)[1:-1]
-            print(f"Destination must be in {poss_letters_str}")
+            poss_letters_str = str(poss_letters)
+            print(config.CONFIG["choice_must_be_in_msg"].format(poss_letters_str))
             return get_second_choice(poss_ampules)
     else:
-        print("Wrong syntax. Try again.")
+        print(config.CONFIG["wrong_syntax_msg"])
         return get_second_choice(poss_ampules)
 
 
-
 def print_possibilities_all(possibilities):
-    print("Possible pours: ")
+    print(config.CONFIG["possible_pours_msg"])
     poss_str = ""
     for i, possibility in enumerate(possibilities):
         source = str(possibility[0])
@@ -115,8 +118,8 @@ def print_possibilities_all(possibilities):
 
 
 def print_possibilities_source(ampules):
-    print("Possible destinations: ")
+    print(config.CONFIG["possible_destinations_msg"])
     poss_str = ""
-    for amp in ampules:
-        poss_str += f"{amp}, "
+    for i, amp in enumerate(ampules):
+        poss_str += f"{i+1}. {amp}, "
     print(poss_str)

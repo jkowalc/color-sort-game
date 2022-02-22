@@ -1,15 +1,12 @@
 from generate_board import generate_board
-from save_load_gameboard import save_game_board_to_json
 import interface
+from config import init_config
 
 
 def main():
-    board = generate_board(4, 5, 2)
-    with open("new.json", "w") as fp:
-        save_game_board_to_json(fp, board)
-    interface.main_loop(board)
-    with open("finished.json", "w") as fp:
-        save_game_board_to_json(fp, board)
+    init_config()
+    board = generate_board(3, 2, 2)
+    interface.level_loop(board)
 
 
 if __name__ == "__main__":

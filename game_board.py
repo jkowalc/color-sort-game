@@ -42,7 +42,7 @@ class GameBoard:
         return possible_pours
 
     def __str__(self):
-        board_str = ""
+        board_str = f"{self.title}\n\n" if self.title else "Custom board\n\n"
         for i in range(self.max_height - 1, -1, -1):
             for amp in self.ampules:
                 board_str += str(amp.get_color(i))

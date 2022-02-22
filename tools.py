@@ -1,5 +1,6 @@
 from typing import List, Tuple
 from ampule import Ampule
+import os
 
 
 def convert_tuple_list_to_dict(list: List[Tuple]) -> dict:
@@ -22,3 +23,7 @@ def get_poss_from_source_letter(poss_dict: dict, source_letter: str):
     sources = poss_dict.keys()
     source = get_ampule_from_letter(sources, source_letter)
     return poss_dict[source], source
+
+
+def clear_console():
+    os.system("cls" if os.name == "nt" else "clear")
