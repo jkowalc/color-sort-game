@@ -1,6 +1,7 @@
-from ampule import pour
-from game_board import GameBoard, WinEvent, NoMoveEvent
-from tools import clear_console, get_ampule_from_letter, get_poss_from_source_letter
+from game_logic.ampule import pour
+from game_logic.game_board import GameBoard, WinEvent, NoMoveEvent
+from tools import (clear_console, get_ampule_from_letter,
+                   get_poss_from_source_letter)
 from tools import convert_tuple_list_to_dict
 import config
 
