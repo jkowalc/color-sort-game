@@ -1,7 +1,7 @@
 import json
-from ampule import Ampule
-from color import Color
-from game_board import GameBoard
+from game_logic.ampule import Ampule
+from game_logic.color import Color
+from game_logic.game_board import GameBoard
 
 
 def save_game_board_to_json(fp, board: GameBoard):

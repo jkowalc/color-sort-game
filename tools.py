@@ -1,5 +1,5 @@
 from typing import List, Tuple
-from ampule import Ampule
+from game_logic.ampule import Ampule
 import os
 
 
