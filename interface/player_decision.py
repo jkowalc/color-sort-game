@@ -1,30 +1,6 @@
-from game_logic.ampule import pour
-from game_logic.game_board import GameBoard, WinEvent, NoMoveEvent
-from tools import (clear_console, get_ampule_from_letter,
-                   get_poss_from_source_letter)
+from tools import get_ampule_from_letter, get_poss_from_source_letter
 from tools import convert_tuple_list_to_dict
 import config
-
-
-def main_loop():
-    pass
-
-
-def level_loop(board: GameBoard):
-    while True:
-        try:
-            clear_console()
-            possibilities = board.get_possible_pours()
-            print(board)
-            player_choice = get_player_decision(possibilities)
-            source, dest = player_choice
-            pour(source, dest)
-        except WinEvent:
-            print("Player won!")
-            break
-        except NoMoveEvent:
-            print("Game over.")
-            break
 
 
 def get_player_decision(possibilities):

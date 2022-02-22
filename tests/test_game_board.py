@@ -1,7 +1,7 @@
 import pytest
-from ampule import Ampule
-from color import Color
-from game_board import GameBoard, NoMoveEvent, WinEvent
+from game_logic.ampule import Ampule
+from game_logic.color import Color
+from game_logic.game_board import GameBoard, NoMoveEvent, WinEvent
 
 
 def test_win_condition():
