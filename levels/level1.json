@@ -1,0 +1,12 @@
+{
+    "title": "Level 1",
+    "max_height": 4,
+    "A": [
+        "blue",
+        "blue",
+        "blue"
+    ],
+    "B": [
+        "blue"
+    ]
+}
