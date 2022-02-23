@@ -38,7 +38,8 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
     first_poss_letters = [key.symbol for key in poss_dict.keys()]
     if source_letter not in first_poss_letters:
         first_poss_letters_str = str(first_poss_letters)
-        print(config.CONFIG["choice_must_be_in_msg"].format(first_poss_letters_str))
+        msg = config.CONFIG["choice_must_be_in_msg"]
+        print(msg.format(first_poss_letters_str))
         return get_player_decision(possibilities)
     poss_from_source = get_poss_from_source_letter(poss_dict, source_letter)
     poss_ampules, source = poss_from_source
@@ -77,7 +78,8 @@ def get_second_choice(poss_ampules):
             return get_ampule_from_letter(poss_ampules, choice)
         else:
             poss_letters_str = str(poss_letters)
-            print(config.CONFIG["choice_must_be_in_msg"].format(poss_letters_str))
+            msg = config.CONFIG["choice_must_be_in_msg"]
+            print(msg.format(poss_letters_str))
             return get_second_choice(poss_ampules)
     else:
         print(config.CONFIG["wrong_syntax_msg"])

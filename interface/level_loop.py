@@ -4,11 +4,7 @@ from interface.player_decision import get_player_decision
 from tools import clear_console
 
 
-def main_loop():
-    pass
-
-
-def level_loop(board: GameBoard):
+def level_loop(board: GameBoard, win_func, fail_func):
     while True:
         try:
             clear_console()
@@ -19,7 +15,9 @@ def level_loop(board: GameBoard):
             pour(source, dest)
         except WinEvent:
             print("Player won!")
+            win_func()
             break
         except NoMoveEvent:
             print("Game over.")
+            fail_func()
             break
