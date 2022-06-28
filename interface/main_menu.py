@@ -9,7 +9,7 @@ def main_menu():
     print("Main menu\n")
     print("1. Choose level")
     print("2. Generate custom board")
-    choice = input(config.CONFIG["standard_choice_msg"])
+    choice = input(config.CONFIG["msg"]["standard_choice"])
     if choice == "1":
         level = choose_level()
         with open(f"levels/level_{level}.json") as fp:
@@ -26,11 +26,11 @@ def main_menu():
 
 def choose_level():
     print(f"Currently implemented levels: 1-{config.CONFIG['max_level']}")
-    choice = input(config.CONFIG["standard_choice_msg"])
+    choice = input(config.CONFIG["msg"]["standard_choice"])
     if choice == "\\q":
         main_menu()
     if not choice.isdigit():
-        print(config.CONFIG["wrong_syntax_msg"])
+        print(config.CONFIG["msg"]["wrong_syntax"])
         return choose_level()
     choice = int(choice)
     if not 1 <= choice <= config.CONFIG["max_level"]:

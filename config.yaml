@@ -1,10 +1,11 @@
-player_decision_msg: "Choose one ('1' or 'a' or 'aa' syntax): "
-player_decision_dest_msg: "\nChoose destination ('1' or 'a' syntax): "
-standard_choice_msg: "Choose one ('1' syntax): "
-choice_outside_bounds_msg: Choice must be between 1 and {limit}. Try again.
-too_many_letters_msg: Too many letters. Try again.
-wrong_syntax_msg: Wrong syntax. Try again.
-choice_must_be_in_msg: Choice must be in {}
-possible_pours_msg: "Possible pours: "
-possible_destinations_msg: "Possible destinations: "
+msg:
+  player_decision: "Choose one ('1' or 'a' or 'aa' syntax): "
+  player_decision_dest: "\nChoose destination ('1' or 'a' syntax): "
+  standard_choice: "Choose one ('1' syntax): "
+  choice_outside_bounds: Choice must be between 1 and {}. Try again.
+  too_many_letters: Too many letters. Try again.
+  wrong_syntax: Wrong syntax. Try again.
+  choice_must_be_in: Choice must be in {}
+  possible_pours: "Possible pours: "
+  possible_destinations: "Possible destinations: "
 max_level: 4

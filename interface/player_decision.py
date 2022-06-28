@@ -6,14 +6,14 @@ import config
 def get_player_decision(possibilities):
     if config.PrintAllPossibilitiesRule:
         print_possibilities_all(possibilities)
-    choice = input(config.CONFIG["player_decision_msg"])
+    choice = input(config.CONFIG["msg"]["player_decision"])
     if choice.isdigit():
         choice = int(choice) - 1
         limit = len(possibilities)
         if choice < limit:
             return possibilities[choice]
         else:
-            print(config.CONFIG["choice_outside_bounds_msg"].format(limit))
+            print(config.CONFIG["msg"]["choice_outside_bounds"].format(limit))
             return get_player_decision(possibilities)
     elif choice.isalpha():
         choice = choice.upper()
@@ -26,10 +26,10 @@ def get_player_decision(possibilities):
             source_letter = choice
             return handle_other_variants(possibilities, source_letter)
         else:
-            print(config.CONFIG["too_many_letters_msg"])
+            print(config.CONFIG["msg"]["too_many_letters"])
             return get_player_decision(possibilities)
     else:
-        print(config.CONFIG["wrong_syntax_msg"])
+        print(config.CONFIG["msg"]["wrong_syntax"])
         return get_player_decision(possibilities)
 
 
@@ -38,7 +38,7 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
     first_poss_letters = [key.symbol for key in poss_dict.keys()]
     if source_letter not in first_poss_letters:
         first_poss_letters_str = str(first_poss_letters)
-        msg = config.CONFIG["choice_must_be_in_msg"]
+        msg = config.CONFIG["msg"]["choice_must_be_in"]
         print(msg.format(first_poss_letters_str))
         return get_player_decision(possibilities)
     poss_from_source = get_poss_from_source_letter(poss_dict, source_letter)
@@ -52,7 +52,8 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
         return source, dest
     else:
         poss_letters_str = str(poss_letters)
-        print(config.CONFIG["choice_must_be_in_msg"].format(poss_letters_str))
+        unformatted_msg = config.CONFIG["msg"]["choice_must_be_in"]
+        print(unformatted_msg.format(poss_letters_str))
         dest = get_second_choice(poss_ampules)
         return source, dest
 
@@ -62,14 +63,14 @@ def get_second_choice(poss_ampules):
         return poss_ampules[0]
     if config.PrintSourcePossibilitiesRule:
         print_possibilities_source(poss_ampules)
-    choice = input(config.CONFIG["player_decision_dest_msg"])
+    choice = input(config.CONFIG["msg"]["player_decision_dest"])
     if choice.isdigit():
         choice = int(choice) - 1
         limit = len(poss_ampules)
         if choice < limit:
             return poss_ampules[choice]
         else:
-            print(config.CONFIG["choice_outside_bounds_msg"].format(limit))
+            print(config.CONFIG["msg"]["choice_outside_bounds"].format(limit))
             return get_second_choice(poss_ampules)
     elif choice.isalpha():
         poss_letters = [str(amp) for amp in poss_ampules]
@@ -78,16 +79,16 @@ def get_second_choice(poss_ampules):
             return get_ampule_from_letter(poss_ampules, choice)
         else:
             poss_letters_str = str(poss_letters)
-            msg = config.CONFIG["choice_must_be_in_msg"]
+            msg = config.CONFIG["msg"]["choice_must_be_in"]
             print(msg.format(poss_letters_str))
             return get_second_choice(poss_ampules)
     else:
-        print(config.CONFIG["wrong_syntax_msg"])
+        print(config.CONFIG["msg"]["wrong_syntax"])
         return get_second_choice(poss_ampules)
 
 
 def print_possibilities_all(possibilities):
-    print(config.CONFIG["possible_pours_msg"])
+    print(config.CONFIG["msg"]["possible_pours"])
     poss_str = ""
     for i, possibility in enumerate(possibilities):
         source = str(possibility[0])
@@ -97,7 +98,7 @@ def print_possibilities_all(possibilities):
 
 
 def print_possibilities_source(ampules):
-    print(config.CONFIG["possible_destinations_msg"])
+    print(config.CONFIG["msg"]["possible_destinations"])
     poss_str = ""
     for i, amp in enumerate(ampules):
         poss_str += f"{i+1}. {amp}, "
