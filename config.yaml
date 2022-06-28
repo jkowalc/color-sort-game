@@ -1,11 +1,33 @@
 msg:
-  player_decision: "Choose one ('1' or 'a' or 'aa' syntax): "
-  player_decision_dest: "\nChoose destination ('1' or 'a' syntax): "
-  standard_choice: "Choose one ('1' syntax): "
+  welcome: "\nWelcome to Color Sort Game!\n\n1. Play custom levels\n2. Generate random\n"
+  choice:
+    standard: Choose one
+    dest: Choose destination
+    board_conf: Choose board configuration
+    amp_height: Choose ampule height
+    num_full_amp: Choose number of full ampules
+    num_empty_amp: Choose number of empty ampules
+  syntax:
+    word: syntax
+    num: "'1'"
+    single_letter: "'1' or 'a'"
+    only_single_letter: "'a'"
+    double_letter: "'1' or 'a' or 'aa'"
+    only_double_letter: "'a' or 'aa'"
   choice_outside_bounds: Choice must be between 1 and {}. Try again.
   too_many_letters: Too many letters. Try again.
-  wrong_syntax: Wrong syntax. Try again.
+  wrong_syntax: "Wrong syntax. It should look like this: {}"
   choice_must_be_in: Choice must be in {}
   possible_pours: "Possible pours: "
   possible_destinations: "Possible destinations: "
-max_level: 4
+  currently_implemented: "Currently implemented levels: 1-{}"
+  all_must_be_numbers: All values must be numbers
+  win: Player won!
+  fail: Game over.
+levels:
+  max_level: 4
+  folder: "levels/"
+  file_format: "level_{}.json"
+game_rules:
+  print_all_possibilities: true
+  print_source_possibilities: true

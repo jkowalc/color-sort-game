@@ -4,10 +4,15 @@ import config
 
 
 def get_player_decision(possibilities):
-    if config.PrintAllPossibilitiesRule:
+    if config.CONFIG["game_rules"]["print_all_possibilities"]:
         print_possibilities_all(possibilities)
-    choice = input(config.CONFIG["msg"]["player_decision"])
-    if choice.isdigit():
+        syntax = config.CONFIG["msg"]["syntax"]["double_letter"]
+    else:
+        syntax = config.CONFIG["msg"]["syntax"]["only_double_letter"]
+    syntax_msg = syntax + " " + config.CONFIG["msg"]["syntax"]["word"]
+    choice_msg = config.CONFIG["msg"]["choice"]["standard"]
+    choice = input(f"{choice_msg} ({syntax_msg}): ")
+    if choice.isdigit() and config.CONFIG["game_rules"]["print_all_possibilities"]:
         choice = int(choice) - 1
         limit = len(possibilities)
         if choice < limit:
@@ -29,7 +34,7 @@ def get_player_decision(possibilities):
             print(config.CONFIG["msg"]["too_many_letters"])
             return get_player_decision(possibilities)
     else:
-        print(config.CONFIG["msg"]["wrong_syntax"])
+        print(config.CONFIG["msg"]["wrong_syntax"].format(syntax))
         return get_player_decision(possibilities)
 
 
@@ -61,10 +66,15 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
 def get_second_choice(poss_ampules):
     if len(poss_ampules) == 1:
         return poss_ampules[0]
-    if config.PrintSourcePossibilitiesRule:
+    if config.CONFIG["game_rules"]["print_source_possibilities"]:
+        syntax = config.CONFIG["msg"]["syntax"]["single_letter"]
         print_possibilities_source(poss_ampules)
-    choice = input(config.CONFIG["msg"]["player_decision_dest"])
-    if choice.isdigit():
+    else:
+        syntax = config.CONFIG["msg"]["syntax"]["only_single_letter"]
+    syntax_msg = syntax + " " + config.CONFIG["msg"]["syntax"]["word"]
+    choice_msg = config.CONFIG["msg"]["choice"]["dest"]
+    choice = input(f"{choice_msg} ({syntax_msg}): ")
+    if choice.isdigit() and config.CONFIG["game_rules"]["print_source_possibilities"]:
         choice = int(choice) - 1
         limit = len(poss_ampules)
         if choice < limit:
@@ -83,7 +93,7 @@ def get_second_choice(poss_ampules):
             print(msg.format(poss_letters_str))
             return get_second_choice(poss_ampules)
     else:
-        print(config.CONFIG["msg"]["wrong_syntax"])
+        print(config.CONFIG["msg"]["wrong_syntax"].format(syntax))
         return get_second_choice(poss_ampules)
 
 

@@ -1,3 +1,4 @@
+import config
 from game_logic.ampule import pour
 from game_logic.game_board import GameBoard, WinEvent, NoMoveEvent
 from interface.player_decision import get_player_decision
@@ -14,10 +15,10 @@ def level_loop(board: GameBoard, win_func, fail_func):
             source, dest = player_choice
             pour(source, dest)
         except WinEvent:
-            print("Player won!")
+            print(config.CONFIG["msg"]["win"])
             win_func()
             break
         except NoMoveEvent:
-            print("Game over.")
+            print(config.CONFIG["msg"]["fail"])
             fail_func()
             break
