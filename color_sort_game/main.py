@@ -1,5 +1,5 @@
-from interface.main_menu import main_menu
-from tools import clear_console
+from color_sort_game.interface.main_menu import main_menu
+from color_sort_game.tools import clear_console
 
 
 def main():

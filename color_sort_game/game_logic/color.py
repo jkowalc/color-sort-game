@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from colorama import Style
 
-from color_translation import text_to_code
+from color_sort_game.color_translation import text_to_code
 
 
 @dataclass

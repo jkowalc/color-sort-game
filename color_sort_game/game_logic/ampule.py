@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import List
-from game_logic.color import Color
+from color_sort_game.game_logic.color import Color
 
 
 class AmpuleFullError(Exception):

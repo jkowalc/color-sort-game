@@ -1,8 +1,8 @@
 from random import choice
-from game_logic.ampule import Ampule
-from game_logic.color import Color
-from color_translation import get_possible_colors
-from game_logic.game_board import GameBoard
+from color_sort_game.game_logic.ampule import Ampule
+from color_sort_game.game_logic.color import Color
+from color_sort_game.color_translation import get_possible_colors
+from color_sort_game.game_logic.game_board import GameBoard
 SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 

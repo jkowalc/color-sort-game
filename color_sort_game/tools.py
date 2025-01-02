@@ -1,19 +1,18 @@
-from typing import List, Tuple
-from game_logic.ampule import Ampule
+from collections import defaultdict
+
+from color_sort_game.game_logic.ampule import Ampule
 import os
 
 
-def convert_tuple_list_to_dict(list: List[Tuple]) -> dict:
-    result_dict = {}
-    for element in list:
+def convert_tuple_list_to_dict(elements: list[tuple]) -> dict:
+    result_dict = defaultdict(lambda: [])
+    for element in elements:
         key, value = element
-        if key not in result_dict.keys():
-            result_dict[key] = []
         result_dict[key].append(value)
-    return result_dict
+    return dict(result_dict)
 
 
-def get_ampule_from_letter(ampule_list: List[Ampule], letter) -> Ampule:
+def get_ampule_from_letter(ampule_list: list[Ampule], letter) -> Ampule:
     for ampule in ampule_list:
         if ampule.symbol == letter:
             return ampule

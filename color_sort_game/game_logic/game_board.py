@@ -1,6 +1,6 @@
 from itertools import permutations
 from typing import List
-from game_logic.ampule import Ampule, can_be_poured
+from color_sort_game.game_logic.ampule import Ampule, can_be_poured
 
 
 class WinEvent(Exception):
