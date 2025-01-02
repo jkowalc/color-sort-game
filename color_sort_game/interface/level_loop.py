@@ -1,8 +1,10 @@
-import config
-from game_logic.ampule import pour
-from game_logic.game_board import GameBoard, WinEvent, NoMoveEvent
-from interface.player_decision import get_player_decision
-from tools import clear_console
+from color_sort_game.config import config
+from color_sort_game.game_logic.ampule import pour
+from color_sort_game.game_logic.game_board import GameBoard, WinEvent, NoMoveEvent
+from color_sort_game.interface.player_decision import get_player_decision
+from color_sort_game.tools import clear_console
+
+CONFIG = config()
 
 
 def level_loop(board: GameBoard, win_func, fail_func):
@@ -15,10 +17,10 @@ def level_loop(board: GameBoard, win_func, fail_func):
             source, dest = player_choice
             pour(source, dest)
         except WinEvent:
-            print(config.CONFIG["msg"]["win"])
+            print(CONFIG["msg"]["win"])
             win_func()
             break
         except NoMoveEvent:
-            print(config.CONFIG["msg"]["fail"])
+            print(CONFIG["msg"]["fail"])
             fail_func()
             break

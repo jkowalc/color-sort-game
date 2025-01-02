@@ -1,6 +1,6 @@
 import pytest
-from game_logic.ampule import Ampule, AmpuleEmptyError, AmpuleFullError, pour
-from game_logic.color import Color
+from color_sort_game.game_logic.ampule import Ampule, AmpuleEmptyError, AmpuleFullError, pour
+from color_sort_game.game_logic.color import Color
 
 
 def test_get_top_color():

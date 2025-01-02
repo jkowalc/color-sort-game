@@ -1,4 +1,4 @@
-from tools import convert_tuple_list_to_dict
+from color_sort_game.tools import convert_tuple_list_to_dict
 
 
 def test_convert_to_dict():

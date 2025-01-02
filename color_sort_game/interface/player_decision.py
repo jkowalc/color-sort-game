@@ -1,24 +1,25 @@
-from tools import get_ampule_from_letter, get_poss_from_source_letter
-from tools import convert_tuple_list_to_dict
-import config
+from color_sort_game.tools import get_ampule_from_letter, get_poss_from_source_letter, convert_tuple_list_to_dict
+from color_sort_game.config import config
+
+CONFIG = config()
 
 
 def get_player_decision(possibilities):
-    if config.CONFIG["game_rules"]["print_all_possibilities"]:
+    if CONFIG["game_rules"]["print_all_possibilities"]:
         print_possibilities_all(possibilities)
-        syntax = config.CONFIG["msg"]["syntax"]["double_letter"]
+        syntax = CONFIG["msg"]["syntax"]["double_letter"]
     else:
-        syntax = config.CONFIG["msg"]["syntax"]["only_double_letter"]
-    syntax_msg = syntax + " " + config.CONFIG["msg"]["syntax"]["word"]
-    choice_msg = config.CONFIG["msg"]["choice"]["standard"]
+        syntax = CONFIG["msg"]["syntax"]["only_double_letter"]
+    syntax_msg = syntax + " " + CONFIG["msg"]["syntax"]["word"]
+    choice_msg = CONFIG["msg"]["choice"]["standard"]
     choice = input(f"{choice_msg} ({syntax_msg}): ")
-    if choice.isdigit() and config.CONFIG["game_rules"]["print_all_possibilities"]:
+    if choice.isdigit() and CONFIG["game_rules"]["print_all_possibilities"]:
         choice = int(choice) - 1
         limit = len(possibilities)
         if choice < limit:
             return possibilities[choice]
         else:
-            print(config.CONFIG["msg"]["choice_outside_bounds"].format(limit))
+            print(CONFIG["msg"]["choice_outside_bounds"].format(limit))
             return get_player_decision(possibilities)
     elif choice.isalpha():
         choice = choice.upper()
@@ -31,10 +32,10 @@ def get_player_decision(possibilities):
             source_letter = choice
             return handle_other_variants(possibilities, source_letter)
         else:
-            print(config.CONFIG["msg"]["too_many_letters"])
+            print(CONFIG["msg"]["too_many_letters"])
             return get_player_decision(possibilities)
     else:
-        print(config.CONFIG["msg"]["wrong_syntax"].format(syntax))
+        print(CONFIG["msg"]["wrong_syntax"].format(syntax))
         return get_player_decision(possibilities)
 
 
@@ -43,7 +44,7 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
     first_poss_letters = [key.symbol for key in poss_dict.keys()]
     if source_letter not in first_poss_letters:
         first_poss_letters_str = str(first_poss_letters)
-        msg = config.CONFIG["msg"]["choice_must_be_in"]
+        msg = CONFIG["msg"]["choice_must_be_in"]
         print(msg.format(first_poss_letters_str))
         return get_player_decision(possibilities)
     poss_from_source = get_poss_from_source_letter(poss_dict, source_letter)
@@ -57,7 +58,7 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
         return source, dest
     else:
         poss_letters_str = str(poss_letters)
-        unformatted_msg = config.CONFIG["msg"]["choice_must_be_in"]
+        unformatted_msg = CONFIG["msg"]["choice_must_be_in"]
         print(unformatted_msg.format(poss_letters_str))
         dest = get_second_choice(poss_ampules)
         return source, dest
@@ -66,21 +67,21 @@ def handle_other_variants(possibilities, source_letter, dest_letter=None):
 def get_second_choice(poss_ampules):
     if len(poss_ampules) == 1:
         return poss_ampules[0]
-    if config.CONFIG["game_rules"]["print_source_possibilities"]:
-        syntax = config.CONFIG["msg"]["syntax"]["single_letter"]
+    if CONFIG["game_rules"]["print_source_possibilities"]:
+        syntax = CONFIG["msg"]["syntax"]["single_letter"]
         print_possibilities_source(poss_ampules)
     else:
-        syntax = config.CONFIG["msg"]["syntax"]["only_single_letter"]
-    syntax_msg = syntax + " " + config.CONFIG["msg"]["syntax"]["word"]
-    choice_msg = config.CONFIG["msg"]["choice"]["dest"]
+        syntax = CONFIG["msg"]["syntax"]["only_single_letter"]
+    syntax_msg = syntax + " " + CONFIG["msg"]["syntax"]["word"]
+    choice_msg = CONFIG["msg"]["choice"]["dest"]
     choice = input(f"{choice_msg} ({syntax_msg}): ")
-    if choice.isdigit() and config.CONFIG["game_rules"]["print_source_possibilities"]:
+    if choice.isdigit() and CONFIG["game_rules"]["print_source_possibilities"]:
         choice = int(choice) - 1
         limit = len(poss_ampules)
         if choice < limit:
             return poss_ampules[choice]
         else:
-            print(config.CONFIG["msg"]["choice_outside_bounds"].format(limit))
+            print(CONFIG["msg"]["choice_outside_bounds"].format(limit))
             return get_second_choice(poss_ampules)
     elif choice.isalpha():
         poss_letters = [str(amp) for amp in poss_ampules]
@@ -89,16 +90,16 @@ def get_second_choice(poss_ampules):
             return get_ampule_from_letter(poss_ampules, choice)
         else:
             poss_letters_str = str(poss_letters)
-            msg = config.CONFIG["msg"]["choice_must_be_in"]
+            msg = CONFIG["msg"]["choice_must_be_in"]
             print(msg.format(poss_letters_str))
             return get_second_choice(poss_ampules)
     else:
-        print(config.CONFIG["msg"]["wrong_syntax"].format(syntax))
+        print(CONFIG["msg"]["wrong_syntax"].format(syntax))
         return get_second_choice(poss_ampules)
 
 
 def print_possibilities_all(possibilities):
-    print(config.CONFIG["msg"]["possible_pours"])
+    print(CONFIG["msg"]["possible_pours"])
     poss_str = ""
     for i, possibility in enumerate(possibilities):
         source = str(possibility[0])
@@ -108,7 +109,7 @@ def print_possibilities_all(possibilities):
 
 
 def print_possibilities_source(ampules):
-    print(config.CONFIG["msg"]["possible_destinations"])
+    print(CONFIG["msg"]["possible_destinations"])
     poss_str = ""
     for i, amp in enumerate(ampules):
         poss_str += f"{i+1}. {amp}, "
